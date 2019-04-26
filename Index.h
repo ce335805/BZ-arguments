@@ -5,8 +5,6 @@
 #include <assert.h>
 #include <iostream>
 
-#include "globals.h"
-
 //to differentiate which constructor to use
 struct start {
 };
@@ -26,6 +24,9 @@ class IndexF {
 
 public:
     static int Nl;
+		static const int Nx_;
+		static const int Ny_ = Nx_;
+
 
     //no arguments - call fermionic start constructor
     IndexF();
@@ -107,6 +108,10 @@ public:
     friend std::ostream& operator<<(std::ostream& os, const IndexF& idx);
 };
 
+///////////////////////
+//Bosonic index class
+//////////////////////
+
 class IndexB {
 
     int l_;
@@ -115,6 +120,8 @@ class IndexB {
 
 public:
     static int Nl;
+		static const int Nx_;
+		static const int Ny_ = Nx_;
 
     //no arguments - call fermionic start constructor
     IndexB();
@@ -191,6 +198,11 @@ public:
     friend std::ostream& operator<<(std::ostream& os, const IndexB& idx);
 };
 
+///////////////////////
+//Fermionic index class in k-space
+//////////////////////
+
+
 class IndexFK {
 
     int kx_;
@@ -200,6 +212,8 @@ class IndexFK {
 
 public:
     static int Nl;
+		static const int Nx_;
+		static const int Ny_ = Nx_;
 
     //no arguments - call fermionic start constructor
     IndexFK();
@@ -285,6 +299,10 @@ public:
     friend std::ostream& operator<<(std::ostream& os, const IndexFK& idx);
 };
 
+//////////////////////////
+//bosonic index class in k-space
+//////////////////////////
+
 class IndexBK {
 
     int kx_;
@@ -294,6 +312,8 @@ class IndexBK {
 
 public:
     static int Nl;
+		static const int Nx_;
+		static const int Ny_ = Nx_;
 
     //no arguments - call fermionic start constructor
     IndexBK();
@@ -376,6 +396,10 @@ public:
     friend std::ostream& operator<<(std::ostream& os, const IndexBK& idx);
 };
 
+////////////////////////////
+//bosonic index class with k-argument in irreducible brillouin zone
+////////////////////////////
+
 class IndexIBZ {
 
     int kx_;
@@ -385,6 +409,8 @@ class IndexIBZ {
 
 public:
     static int Nl;
+		static const int Nx_;
+		static const int Ny_ = Nx_;
 
     //no arguments - call fermionic start constructor
     IndexIBZ();

@@ -14,13 +14,9 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 set(project_sources
 		run_all_tests.cpp
-		greentest.cpp
-		test_FF.cpp
                 test_Index.cpp
                 test_IndexIBZ.cpp
-                ../GreenFunction.cpp
                 ../Index.cpp
-                ../FF.cpp
         )
 
 #include gtest

@@ -5,6 +5,17 @@
 int IndexF::Nl;
 int IndexB::Nl;
 
+int IndexF::Nx_
+int IndexF::Ny_
+int IndexB::Nx_
+int IndexB::Ny_
+int IndexFK::Nx_
+int IndexFK::Ny_
+int IndexBK::Nx_
+int IndexBK::Ny_
+int IndexIBZ::Nx_
+int IndexIBZ::Ny_
+
 ///////////////////////////////////
 //definition of functions in IndexF
 ///////////////////////////////////

@@ -4,6 +4,10 @@ CMakeLists.txt.user
 CMakeLists.txt.user*
 cmake_install.cmake
 
+#hdf5 files
+*.h5
+*.hdf5
+
 #batch script for usage on supercomputer
 batch_script*
 
