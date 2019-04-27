@@ -32,7 +32,7 @@ set(C_flags "-O3 -Wall -mkl -Wextra -pedantic")
 set(CMAKE_CXX_FLAGS	"${CMAKE_CXX_FLAGS} ${C_flags}")
 
 #set project name
-project (test_victory)
+project (test_BZarguments)
 #add an executable - using variables
 add_executable(${PROJECT_NAME} ${project_sources})
 

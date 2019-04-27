@@ -1,5 +1,4 @@
 #include "Index.h"
-#include "globals.h"
 #include "mpi.h"
 #include "gtest/gtest.h"
 
@@ -7,6 +6,17 @@ namespace {
 
 TEST(IndexIBZTest, initialization)
 {
+
+    int Nx = 10;
+    int Ny = 10;
+    int NxIBZ = (Nx / 2 + 1) * (Nx / 2 + 2);
+    int Nw = 16;
+
+    IndexIBZ::Nx_ = Nx;
+    IndexIBZ::Ny_ = Ny;
+    IndexIBZ::NxIBZ_ = (IndexIBZ::Nx_ / 2 + 1) * (IndexIBZ::Nx_ / 2 + 2) ;
+    IndexIBZ::Nw = Nw;
+
 
     int worldsize;
     int myrank;
@@ -30,6 +40,16 @@ TEST(IndexIBZTest, initialization)
 
 TEST(IndexIBZTest, operators)
 {
+
+    int Nx = 10;
+    int Ny = 10;
+    int NxIBZ = (Nx / 2 + 1) * (Nx / 2 + 2);
+    int Nw = 16;
+
+    IndexIBZ::Nx_ = Nx;
+    IndexIBZ::Ny_ = Ny;
+    IndexIBZ::NxIBZ_ = (IndexIBZ::Nx_ / 2 + 1) * (IndexIBZ::Nx_ / 2 + 2) ;
+    IndexIBZ::Nw = Nw;
 
     int worldsize;
     int myrank;

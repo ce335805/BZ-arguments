@@ -24,8 +24,7 @@ class IndexF {
 
 public:
     static int Nl;
-		static const int Nx_;
-		static const int Ny_ = Nx_;
+		static int Nw;
 
 
     //no arguments - call fermionic start constructor
@@ -120,8 +119,7 @@ class IndexB {
 
 public:
     static int Nl;
-		static const int Nx_;
-		static const int Ny_ = Nx_;
+		static int Nw;
 
     //no arguments - call fermionic start constructor
     IndexB();
@@ -212,8 +210,9 @@ class IndexFK {
 
 public:
     static int Nl;
-		static const int Nx_;
-		static const int Ny_ = Nx_;
+        static int Nx_;
+        static int Ny_;
+		static int Nw;
 
     //no arguments - call fermionic start constructor
     IndexFK();
@@ -245,14 +244,14 @@ public:
     inline IndexFK& operator++() noexcept
     {
         //        //increments f only when ky and kx have reached 'largest' value
-        //        f_ += 2 * ((ky_ * Nx + kx_ + 1) / (Nx * Ny));
-        //        ky_ += ((kx_ + 1) / Nx);
-        //        ky_ = ky_ % Ny;
-        //        kx_ = (kx_ + 1) % Nx;
+        //        f_ += 2 * ((ky_ * Nx_ + kx_ + 1) / (Nx_ * Ny_));
+        //        ky_ += ((kx_ + 1) / Nx_);
+        //        ky_ = ky_ % Ny_;
+        //        kx_ = (kx_ + 1) % Nx_;
 
-        f_ += 2 * static_cast<int>(kx_ == Nx - 1 && ky_ == Ny - 1);
-        ky_ = (ky_ + static_cast<int>(kx_ == Nx - 1)) % Ny;
-        kx_ = ++kx_ % Nx;
+        f_ += 2 * static_cast<int>(kx_ == Nx_ - 1 && ky_ == Ny_ - 1);
+        ky_ = (ky_ + static_cast<int>(kx_ == Nx_ - 1)) % Ny_;
+        kx_ = ++kx_ % Nx_;
 
         return *this;
     }
@@ -282,13 +281,13 @@ public:
     IndexFK operator-(const IndexBK& to_sub);
 
     //Index for array Indexing
-    inline int ind() const noexcept { return ((f_ - 1) / 2 + Nw_internal_) * Nx * Ny + ky_ * Nx + kx_; }
+    inline int ind() const noexcept { return ((f_ - 1) / 2 + Nw_internal_) * Nx_ * Ny_ + ky_ * Nx_ + kx_; }
     //narrowed down index
     inline int ind(const int Nw_range) const noexcept
     {
         assert(Nw_range * Nw <= Nw_internal_);
         assert(std::abs(f_) <= 2.0 * (Nw_range * Nw) - 1);
-        return ((f_ - 1) / 2 + Nw_range * Nw) * Nx * Ny + ky_ * Nx + kx_;
+        return ((f_ - 1) / 2 + Nw_range * Nw) * Nx_ * Ny_ + ky_ * Nx_ + kx_;
     }
 
     inline int get_kx() const noexcept { return kx_; }
@@ -312,8 +311,9 @@ class IndexBK {
 
 public:
     static int Nl;
-		static const int Nx_;
-		static const int Ny_ = Nx_;
+        static int Nx_;
+        static int Ny_;
+		static int Nw;
 
     //no arguments - call fermionic start constructor
     IndexBK();
@@ -345,10 +345,10 @@ public:
     inline IndexBK& operator++() noexcept
     {
         //increments f only when kx and ky are at 'largest value'
-        f_ += 2 * ((ky_ * Nx + kx_ + 1) / (Nx * Ny));
-        ky_ += ((kx_ + 1) / Nx);
-        ky_ = ky_ % Ny;
-        kx_ = (kx_ + 1) % Nx;
+        f_ += 2 * ((ky_ * Nx_ + kx_ + 1) / (Nx_ * Ny_));
+        ky_ += ((kx_ + 1) / Nx_);
+        ky_ = ky_ % Ny_;
+        kx_ = (kx_ + 1) % Nx_;
 
         return *this;
     }
@@ -378,14 +378,14 @@ public:
     IndexFK operator-(const IndexFK& to_sub);
 
     //Index for array Indexing
-    inline int ind() const noexcept { return (f_ / 2) * Nx * Ny + ky_ * Nx + kx_; }
+    inline int ind() const noexcept { return (f_ / 2) * Nx_ * Ny_ + ky_ * Nx_ + kx_; }
     //narrowed index - nothing to do here
     inline int ind(const int Nw_range) const noexcept
     {
         //check that function is used as intended
         assert(Nw_range * Nw <= Nw_internal_);
         assert(f_ <= Nw_range * Nw);
-        return (f_ / 2) * Nx * Ny + ky_ * Nx + kx_;
+        return (f_ / 2) * Nx_ * Ny_ + ky_ * Nx_ + kx_;
     }
 
     inline int get_kx() const noexcept { return kx_; }
@@ -409,8 +409,10 @@ class IndexIBZ {
 
 public:
     static int Nl;
-		static const int Nx_;
-		static const int Ny_ = Nx_;
+        static int Nx_;
+        static int Ny_;
+        static int NxIBZ_;
+		static int Nw;
 
     //no arguments - call fermionic start constructor
     IndexIBZ();
@@ -431,11 +433,11 @@ public:
     inline IndexIBZ& operator++() noexcept
     {
 
-        f_ += 2 * static_cast<int>(kx_ == Nx / 2 && ky_ == Ny / 2);
+        f_ += 2 * static_cast<int>(kx_ == Nx_ / 2 && ky_ == Ny_ / 2);
         ++kx_;
         kx_ = kx_ % (ky_ + 1);
         ky_ += static_cast<int>(kx_ == 0);
-        ky_ = (ky_ % ((Ny / 2) + 1));
+        ky_ = (ky_ % ((Ny_ / 2) + 1));
 
         return *this;
     }
@@ -460,7 +462,7 @@ public:
     IndexFK operator-(const IndexFK& to_sub) const noexcept;
 
     //Index for array Indexing
-    inline int ind() const noexcept { return (f_ / 2) * NxIBZ + (ky_ * (ky_ + 1))/2 + kx_; }
+    inline int ind() const noexcept { return (f_ / 2) * NxIBZ_ + (ky_ * (ky_ + 1))/2 + kx_; }
 
     inline int get_kx() const noexcept { return kx_; }
     inline int get_ky() const noexcept { return ky_; }

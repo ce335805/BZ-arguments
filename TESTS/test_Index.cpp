@@ -1,5 +1,4 @@
 #include "Index.h"
-#include "globals.h"
 #include "gtest/gtest.h"
 
 namespace {
@@ -7,9 +6,24 @@ namespace {
 TEST(IndexTest, initialization)
 {
 
-    int Nl = 100;
-    IndexF ::Nl = Nl;
-    IndexB ::Nl = Nl;
+    int Nx = 10;
+    int Ny = 10;
+    int Nl = Nx * Ny;
+    int Nw = 16;
+
+    IndexF::Nl = Nl;
+    IndexB::Nl = Nl;
+
+    IndexFK::Nx_ = Nx;
+    IndexFK::Ny_ = Ny;
+    IndexBK::Nx_ = Nx;
+    IndexBK::Ny_ = Ny;
+
+    IndexF::Nw = Nw;
+    IndexB::Nw = Nw;
+    IndexFK::Nw = Nw;
+    IndexBK::Nw = Nw;
+
 
     //IndexF
     IndexF f1;
@@ -133,9 +147,23 @@ TEST(IndexTest, initialization)
 TEST(IndexTest, operators)
 {
 
-    int Nl = 100;
-    IndexF ::Nl = Nl;
-    IndexB ::Nl = Nl;
+    int Nx = 10;
+    int Ny = 10;
+    int Nl = Nx * Ny;
+    int Nw = 16;
+
+    IndexF::Nl = Nl;
+    IndexB::Nl = Nl;
+
+    IndexFK::Nx_ = Nx;
+    IndexFK::Ny_ = Ny;
+    IndexBK::Nx_ = Nx;
+    IndexBK::Ny_ = Ny;
+
+    IndexF::Nw = Nw;
+    IndexB::Nw = Nw;
+    IndexFK::Nw = Nw;
+    IndexBK::Nw = Nw;
 
     //IndexF
     IndexF f1;

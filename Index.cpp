@@ -5,16 +5,19 @@
 int IndexF::Nl;
 int IndexB::Nl;
 
-int IndexF::Nx_
-int IndexF::Ny_
-int IndexB::Nx_
-int IndexB::Ny_
-int IndexFK::Nx_
-int IndexFK::Ny_
-int IndexBK::Nx_
-int IndexBK::Ny_
-int IndexIBZ::Nx_
-int IndexIBZ::Ny_
+int IndexFK::Nx_;
+int IndexFK::Ny_;
+int IndexBK::Nx_;
+int IndexBK::Ny_;
+int IndexIBZ::Nx_;
+int IndexIBZ::Ny_;
+int IndexIBZ::NxIBZ_;
+
+int IndexF::Nw;
+int IndexB::Nw;
+int IndexFK::Nw;
+int IndexBK::Nw;
+int IndexIBZ::Nw;
 
 ///////////////////////////////////
 //definition of functions in IndexF
@@ -32,6 +35,8 @@ IndexF::IndexF(const int l_init, const int f_init)
 {
     //assert that passsed frequency in uneven
     assert(std::abs(f_init % 2) == 1);
+    assert(Nl > 0);
+    assert(Nw > 0);
     this->l_ = l_init;
     this->f_ = f_init;
 }
@@ -39,6 +44,8 @@ IndexF::IndexF(const int l_init, const int f_init)
 IndexF::IndexF(const start dummy_start)
     : Nw_internal_ { Nw }
 {
+    assert(Nl > 0);
+    assert(Nw > 0);
     this->l_ = 0;
     this->f_ = -2 * Nw_internal_ + 1;
 }
@@ -46,6 +53,8 @@ IndexF::IndexF(const start dummy_start)
 IndexF::IndexF(const end dummy_end)
     : Nw_internal_ { Nw }
 {
+    assert(Nl > 0);
+    assert(Nw > 0);
     this->l_ = 0;
     this->f_ = 2 * Nw_internal_ + 1;
 }
@@ -54,6 +63,8 @@ IndexF::IndexF(const end dummy_end)
 IndexF::IndexF(const int Nw_range)
     : IndexF(start(), Nw_range)
 {
+    assert(Nl > 0);
+    assert(Nw > 0);
 }
 
 //constructor with explicitly determined arguments
@@ -62,6 +73,8 @@ IndexF::IndexF(const int l_init, const int f_init, const int Nw_range)
 {
     //assert that passsed frequency in uneven
     assert(std::abs(f_init % 2) == 1);
+    assert(Nl > 0);
+    assert(Nw > 0);
     this->l_ = l_init;
     this->f_ = f_init;
 }
@@ -69,6 +82,8 @@ IndexF::IndexF(const int l_init, const int f_init, const int Nw_range)
 IndexF::IndexF(const start dummy_start, const int Nw_range)
     : Nw_internal_ { Nw_range * Nw }
 {
+    assert(Nl > 0);
+    assert(Nw > 0);
     this->l_ = 0;
     this->f_ = -2 * Nw_internal_ + 1;
 }
@@ -76,6 +91,8 @@ IndexF::IndexF(const start dummy_start, const int Nw_range)
 IndexF::IndexF(const end dummy_end, const int Nw_range)
     : Nw_internal_ { Nw_range * Nw }
 {
+    assert(Nl > 0);
+    assert(Nw > 0);
     this->l_ = 0;
     this->f_ = 2 * Nw_internal_ + 1;
 }
@@ -151,6 +168,8 @@ IndexB::IndexB(const int l_init, const int f_init)
 {
     //check that passed frequency is even
     assert(f_init % 2 == 0);
+    assert(Nl > 0);
+    assert(Nw > 0);
     this->l_ = l_init;
     this->f_ = f_init;
 }
@@ -158,6 +177,8 @@ IndexB::IndexB(const int l_init, const int f_init)
 IndexB::IndexB(const start dummy_start)
     : Nw_internal_ { Nw }
 {
+    assert(Nl > 0);
+    assert(Nw > 0);
     this->l_ = 0;
     this->f_ = 0;
 }
@@ -165,6 +186,8 @@ IndexB::IndexB(const start dummy_start)
 IndexB::IndexB(const end dummy_end)
     : Nw_internal_ { Nw }
 {
+    assert(Nl > 0);
+    assert(Nw > 0);
     this->l_ = 0;
     this->f_ = 2 * Nw_internal_;
 }
@@ -173,6 +196,8 @@ IndexB::IndexB(const end dummy_end)
 IndexB::IndexB(const int Nw_range)
     : IndexB(start(), Nw_range)
 {
+    assert(Nl > 0);
+    assert(Nw > 0);
 }
 
 //constructor with explicitl determined arguments
@@ -181,6 +206,8 @@ IndexB::IndexB(const int l_init, const int f_init, const int Nw_range)
 {
     //check that passed frequency is even
     assert(f_init % 2 == 0);
+    assert(Nl > 0);
+    assert(Nw > 0);
     this->l_ = l_init;
     this->f_ = f_init;
 }
@@ -188,6 +215,8 @@ IndexB::IndexB(const int l_init, const int f_init, const int Nw_range)
 IndexB::IndexB(const start dummy_start, const int Nw_range)
     : Nw_internal_ { Nw_range * Nw }
 {
+    assert(Nl > 0);
+    assert(Nw > 0);
     this->l_ = 0;
     this->f_ = 0;
 }
@@ -195,6 +224,8 @@ IndexB::IndexB(const start dummy_start, const int Nw_range)
 IndexB::IndexB(const end dummy_end, const int Nw_range)
     : Nw_internal_ { Nw_range * Nw }
 {
+    assert(Nl > 0);
+    assert(Nw > 0);
     this->l_ = 0;
     this->f_ = 2 * Nw_internal_;
 }
@@ -270,14 +301,22 @@ IndexFK::IndexFK(const int kx_init, const int ky_init, const int f_init)
 {
     //check that passed frequency is uneven
     assert(std::abs(f_init % 2) == 1);
-    this->kx_ = kx_init % Nx;
-    this->ky_ = ky_init % Ny;
+    assert(Nx_ > 0);
+    assert(Ny_ > 0);
+    assert(Nw > 0);
+
+    this->kx_ = kx_init % Nx_;
+    this->ky_ = ky_init % Ny_;
     this->f_ = f_init;
 }
 //start with first fermionic frequency
 IndexFK::IndexFK(const start dummy_start)
     : Nw_internal_ { Nw }
 {
+    assert(Nx_ > 0);
+    assert(Ny_ > 0);
+    assert(Nw > 0);
+
     this->kx_ = 0;
     this->ky_ = 0;
     this->f_ = -2 * Nw_internal_ + 1;
@@ -286,6 +325,10 @@ IndexFK::IndexFK(const start dummy_start)
 IndexFK::IndexFK(const end dummy_end)
     : Nw_internal_ { Nw }
 {
+    assert(Nx_ > 0);
+    assert(Ny_ > 0);
+    assert(Nw > 0);
+
     this->kx_ = 0;
     this->ky_ = 0;
     this->f_ = 2 * Nw_internal_ + 1;
@@ -295,6 +338,9 @@ IndexFK::IndexFK(const end dummy_end)
 IndexFK::IndexFK(const int Nw_range)
     : IndexFK(start(), Nw_range)
 {
+    assert(Nx_ > 0);
+    assert(Ny_ > 0);
+    assert(Nw > 0);
 }
 
 //constructor with explicitl determined arguments
@@ -303,14 +349,22 @@ IndexFK::IndexFK(const int kx_init, const int ky_init, const int f_init, const i
 {
     //check that passed frequency is uneven
     assert(std::abs(f_init % 2) == 1);
-    this->kx_ = kx_init % Nx;
-    this->ky_ = ky_init % Ny;
+    assert(Nx_ > 0);
+    assert(Ny_ > 0);
+    assert(Nw > 0);
+
+    this->kx_ = kx_init % Nx_;
+    this->ky_ = ky_init % Ny_;
     this->f_ = f_init;
 }
 //start with first fermionic frequency
 IndexFK::IndexFK(const start dummy_start, const int Nw_range)
     : Nw_internal_ { Nw_range * Nw }
 {
+    assert(Nx_ > 0);
+    assert(Ny_ > 0);
+    assert(Nw > 0);
+
     this->kx_ = 0;
     this->ky_ = 0;
     this->f_ = -2 * Nw_internal_ + 1;
@@ -319,6 +373,10 @@ IndexFK::IndexFK(const start dummy_start, const int Nw_range)
 IndexFK::IndexFK(const end dummy_end, const int Nw_range)
     : Nw_internal_ { Nw_range * Nw }
 {
+    assert(Nx_ > 0);
+    assert(Ny_ > 0);
+    assert(Nw > 0);
+
     this->kx_ = 0;
     this->ky_ = 0;
     this->f_ = 2 * Nw_internal_ + 1;
@@ -350,7 +408,7 @@ IndexBK IndexFK::operator+(const IndexFK& to_add)
 
 IndexBK IndexFK::operator-(const IndexFK& to_sub)
 {
-    return IndexBK(this->kx_ - to_sub.get_kx() + Nx, this->ky_ - to_sub.get_ky() + Ny, this->f_ - to_sub.get_f());
+    return IndexBK(this->kx_ - to_sub.get_kx() + Nx_, this->ky_ - to_sub.get_ky() + Ny_, this->f_ - to_sub.get_f());
 }
 
 //addition/subtraction Fermion +- Boson
@@ -361,7 +419,7 @@ IndexFK IndexFK::operator+(const IndexBK& to_add)
 
 IndexFK IndexFK::operator-(const IndexBK& to_sub)
 {
-    return IndexFK(this->kx_ - to_sub.get_kx() + Nx, this->ky_ - to_sub.get_ky() + Ny, this->f_ - to_sub.get_f());
+    return IndexFK(this->kx_ - to_sub.get_kx() + Nx_, this->ky_ - to_sub.get_ky() + Ny_, this->f_ - to_sub.get_f());
 }
 
 //define output of indices
@@ -379,6 +437,9 @@ std::ostream& operator<<(std::ostream& os, const IndexFK& idx)
 IndexBK::IndexBK()
     : IndexBK(start())
 {
+    assert(Nx_ > 0);
+    assert(Ny_ > 0);
+    assert(Nw > 0);
 }
 
 //constructor with explicitl determined arguments
@@ -387,14 +448,22 @@ IndexBK::IndexBK(const int kx_init, const int ky_init, const int f_init)
 {
     //check that passed frequency is uneven
     assert(f_init % 2 == 0);
-    this->kx_ = kx_init % Nx;
-    this->ky_ = ky_init % Ny;
+    assert(Nx_ > 0);
+    assert(Ny_ > 0);
+    assert(Nw > 0);
+
+    this->kx_ = kx_init % Nx_;
+    this->ky_ = ky_init % Ny_;
     this->f_ = f_init;
 }
 //start with first fermionic frequency
 IndexBK::IndexBK(const start dummy_start)
     : Nw_internal_ { Nw }
 {
+    assert(Nx_ > 0);
+    assert(Ny_ > 0);
+    assert(Nw > 0);
+
     this->kx_ = 0;
     this->ky_ = 0;
     this->f_ = 0;
@@ -403,6 +472,10 @@ IndexBK::IndexBK(const start dummy_start)
 IndexBK::IndexBK(const end dummy_end)
     : Nw_internal_ { Nw }
 {
+    assert(Nx_ > 0);
+    assert(Ny_ > 0);
+    assert(Nw > 0);
+
     this->kx_ = 0;
     this->ky_ = 0;
     this->f_ = 2 * Nw_internal_;
@@ -412,6 +485,9 @@ IndexBK::IndexBK(const end dummy_end)
 IndexBK::IndexBK(const int Nw_range)
     : IndexBK(start(), Nw_range)
 {
+    assert(Nx_ > 0);
+    assert(Ny_ > 0);
+    assert(Nw > 0);
 }
 
 //constructor with explicitl determined arguments
@@ -420,14 +496,22 @@ IndexBK::IndexBK(const int kx_init, const int ky_init, const int f_init, const i
 {
     //check that passed frequency is uneven
     assert(f_init % 2 == 0);
-    this->kx_ = kx_init % Nx;
-    this->ky_ = ky_init % Ny;
+    assert(Nx_ > 0);
+    assert(Ny_ > 0);
+    assert(Nw > 0);
+
+    this->kx_ = kx_init % Nx_;
+    this->ky_ = ky_init % Ny_;
     this->f_ = f_init;
 }
 //start with first fermionic frequency
 IndexBK::IndexBK(const start dummy_start, const int Nw_range)
     : Nw_internal_ { Nw_range * Nw }
 {
+    assert(Nx_ > 0);
+    assert(Ny_ > 0);
+    assert(Nw > 0);
+
     this->kx_ = 0;
     this->ky_ = 0;
     this->f_ = 0;
@@ -436,6 +520,10 @@ IndexBK::IndexBK(const start dummy_start, const int Nw_range)
 IndexBK::IndexBK(const end dummy_end, const int Nw_range)
     : Nw_internal_ { Nw_range * Nw }
 {
+    assert(Nx_ > 0);
+    assert(Ny_ > 0);
+    assert(Nw > 0);
+
     this->kx_ = 0;
     this->ky_ = 0;
     this->f_ = 2 * Nw_internal_;
@@ -467,7 +555,7 @@ IndexBK IndexBK::operator+(const IndexBK& to_add)
 //subtract only frequencies but keep first l-IndexBK
 IndexBK IndexBK::operator-(const IndexBK& to_sub)
 {
-    return IndexBK(this->kx_ - to_sub.get_kx() + Nx, this->ky_ - to_sub.get_ky() + Ny, this->f_ - to_sub.get_f());
+    return IndexBK(this->kx_ - to_sub.get_kx() + Nx_, this->ky_ - to_sub.get_ky() + Ny_, this->f_ - to_sub.get_f());
 }
 
 //addition/subtraction Boson +- Fermion
@@ -478,7 +566,7 @@ IndexFK IndexBK::operator+(const IndexFK& to_add)
 
 IndexFK IndexBK::operator-(const IndexFK& to_sub)
 {
-    return IndexFK(this->kx_ - to_sub.get_kx() + Nx, this->ky_ - to_sub.get_ky() + Ny, this->f_ - to_sub.get_f());
+    return IndexFK(this->kx_ - to_sub.get_kx() + Nx_, this->ky_ - to_sub.get_ky() + Ny_, this->f_ - to_sub.get_f());
 }
 
 //define output of indices
@@ -496,6 +584,10 @@ std::ostream& operator<<(std::ostream& os, const IndexBK& idx)
 IndexIBZ::IndexIBZ()
     : IndexIBZ(start())
 {
+    assert(Nx_ > 0);
+    assert(Ny_ > 0);
+    assert(NxIBZ_ > 0);
+    assert(Nw > 0);
 }
 
 //constructor with explicitl determined arguments
@@ -504,29 +596,39 @@ IndexIBZ::IndexIBZ(const int kx_init, const int ky_init, const int f_init)
 {
     //check that passed frequency is uneven
     assert(f_init % 2 == 0);
-    this->kx_ = kx_init % Nx;
-    this->ky_ = ky_init % Ny;
+    assert(Nx_ > 0);
+    assert(Ny_ > 0);
+    assert(NxIBZ_ > 0);
+    assert(Nw > 0);
+
+    this->kx_ = kx_init % Nx_;
+    this->ky_ = ky_init % Ny_;
     this->f_ = f_init;
 }
 //start with first fermionic frequency
 IndexIBZ::IndexIBZ(const start dummy_start)
     : Nw_internal_ { Nw }
 {
+    assert(Nx_ > 0);
+    assert(Ny_ > 0);
+    assert(NxIBZ_ > 0);
+    assert(Nw > 0);
+
     // get the correct index at own task
     int worldsize;
     int myrank;
     MPI_Comm_size(MPI_COMM_WORLD, &worldsize);
     MPI_Comm_rank(MPI_COMM_WORLD, &myrank);
 
-    const int index_start = (Nw * NxIBZ) / worldsize * myrank;
-    this->f_ = 2 * index_start / NxIBZ;
-    const int index_momentum = index_start % NxIBZ;
+    const int index_start = (Nw * NxIBZ_) / worldsize * myrank;
+    this->f_ = 2 * index_start / NxIBZ_;
+    const int index_momentum = index_start % NxIBZ_;
 
     kx_ = 0;
     ky_ = 0;
 
     //determine ky_ by looping through 'wedge' of k_points
-    for (int pos = 0; pos < Nx / 2 + 1; ++pos) {
+    for (int pos = 0; pos < Nx_ / 2 + 1; ++pos) {
 
         this->ky_ += int(index_momentum > (pos * (pos + 1)) / 2);
     }
@@ -538,21 +640,26 @@ IndexIBZ::IndexIBZ(const start dummy_start)
 IndexIBZ::IndexIBZ(const end dummy_end)
     : Nw_internal_ { Nw }
 {
+    assert(Nx_ > 0);
+    assert(Ny_ > 0);
+    assert(NxIBZ_ > 0);
+    assert(Nw > 0);
+
     // get the correct index at own task
     int worldsize;
     int myrank;
     MPI_Comm_size(MPI_COMM_WORLD, &worldsize);
     MPI_Comm_rank(MPI_COMM_WORLD, &myrank);
 
-    const int index_start = (Nw * NxIBZ) / worldsize * (myrank + 1);
-    this->f_ =  2 * index_start / NxIBZ;
-    const int index_momentum = index_start % NxIBZ;
+    const int index_start = (Nw * NxIBZ_) / worldsize * (myrank + 1);
+    this->f_ =  2 * index_start / NxIBZ_;
+    const int index_momentum = index_start % NxIBZ_;
 
     kx_ = 0;
     ky_ = 0;
 
     //determine ky_ by looping through 'wedge' of k_points
-    for (int pos = 0; pos < Nx / 2 + 1; ++pos) {
+    for (int pos = 0; pos < Nx_ / 2 + 1; ++pos) {
 
         this->ky_ += int(index_momentum > (pos * (pos + 1)) / 2);
     }
@@ -578,7 +685,7 @@ IndexFK IndexIBZ::operator+(const IndexFK& to_add) const noexcept
 
 IndexFK IndexIBZ::operator-(const IndexFK& to_sub) const noexcept
 {
-    return IndexFK(this->kx_ - to_sub.get_kx() + Nx, this->ky_ - to_sub.get_ky() + Ny, this->f_ - to_sub.get_f());
+    return IndexFK(this->kx_ - to_sub.get_kx() + Nx_, this->ky_ - to_sub.get_ky() + Ny_, this->f_ - to_sub.get_f());
 }
 
 //define output of indices
