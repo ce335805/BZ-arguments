@@ -16,13 +16,13 @@ set(project_sources
 		run_all_tests.cpp
                 test_Index.cpp
                 test_IndexIBZ.cpp
-                ../Index.cpp
+#                ../Index.cpp
         )
 
 #include gtest
 include_directories("/home/chris/gtest/googletest/googletest/include")
 #include from parent directory to have '.h' files
-include_directories("../")
+include_directories("../include/")
 #include MKL
 include_directories("/opt/intel/mkl/include")
 
@@ -43,3 +43,5 @@ target_link_libraries(${PROJECT_NAME} "/home/chris/gtest/build/lib/libgtest_main
 target_link_libraries(${PROJECT_NAME} "pthread")
 #place where libfabric is installed - needed for IntelMPI-2019
 target_link_libraries(${PROJECT_NAME} "/usr/local/lib/libfabric.so.1")
+#link to BZargument library
+target_link_libraries(${PROJECT_NAME} "/home/chris/uni/BZ-arguments/lib/libBZ.a")

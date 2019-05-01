@@ -3,6 +3,7 @@ CMakeFiles/
 CMakeLists.txt.user
 CMakeLists.txt.user*
 cmake_install.cmake
+build-TESTS-Desktop-Default/
 
 #hdf5 files
 *.h5

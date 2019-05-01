@@ -1,9 +1,9 @@
 #makefile to build BZ-arguments library
 CC = mpiicpc
 CPPFLAGS =
-libdir = ./
-incdir = ./
-srcdir = ./
+libdir = lib/
+incdir = include/
+srcdir = src/
 
 
 OUTFILE = $(libdir)libBZ.a
